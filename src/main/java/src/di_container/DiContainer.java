@@ -4,9 +4,13 @@ import src.di_container.annotations.Autowired;
 import src.di_container.annotations.Component;
 import src.di_container.annotations.Primary;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DiContainer {
@@ -58,6 +62,23 @@ public class DiContainer {
 
     public static <T> T get(Class<T> type) {
         return (T) getDependency(type);
+    }
+
+    public List<Class<?>> scan(String... basePackages) throws ClassNotFoundException{
+        List<Class<?>> components = new ArrayList<>();
+
+        for(String basePackage : basePackages){
+            String path = basePackage.replace('.', '/');
+            URL packageUrl = this.getClass().getClassLoader().getResource(path);
+            if(packageUrl != null){
+                File
+            }
+        }
+    }
+
+    public static String getMainClassPackage(Class<?> mainClass) {
+        Package pkg = mainClass.getPackage();
+        return pkg != null ? pkg.getName() : "";
     }
 }
 
